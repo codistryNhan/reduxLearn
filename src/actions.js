@@ -8,10 +8,10 @@ export const createPost = (user, text) => {
   }
 }
 
-export const editPost = (user, text) => {
+export const editPost = (id, text) => {
   return {
     type: EDIT_POST,
-    user,
+    id,
     text
   }
 }

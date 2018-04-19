@@ -14,7 +14,7 @@ function postsReducer (state = [], action) {
       const { type, id, ...newPost } = action;
 
       return state.map( (oldPost, index) => {
-        action.id === index ? { ...oldPost, ...newPost } : oldPost ;
+        return action.id === index ? { ...oldPost, ...newPost } : oldPost;
       });
     }
 
@@ -34,7 +34,7 @@ function filterReducer(state = 'all', action) {
   }
 }
 
-const appReducer = comebineReducers({
+const appReducer = combineReducers({
   posts: postsReducer,
   filter: filterReducer,
 })
