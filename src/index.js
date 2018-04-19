@@ -4,4 +4,10 @@ import appReducer from './reducers';
 
 let store = createStore(appReducer);
 
-console.log(store.getState());
+const unsubscribe = store.subscribe(() => {
+  console.log('state changed:', store.getState());
+})
+
+store.dispatch(createPost('dan', 'hello world'));
+store.dispatch(createPost('dan', 'hello world'));
+store.dispatch(editPost(0, 'hello guys'));
