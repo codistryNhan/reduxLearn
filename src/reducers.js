@@ -1,16 +1,21 @@
-import { CREATE_POST, EDIT_POST, SET_FILTER} from './actionTypes';
+import { CREATE_POST, EDIT_POST, SET_FILTER } from './actionTypes';
+import { combineReducers } from 'redux';
 
-export function postReducer (state = [], action) {
+function postsReducer (state = [], action) {
 
-  switch (action.type) {
+  switch(action.type) {
     case CREATE_POST: {
-      const { type, ...post } = action
+      const { type, ...post } = action;
 
-      return [ ...state, post]
+      return [ ...state, post];
     }
 
     case EDIT_POST: {
-      return
+      const { type, id, ...newPost } = action;
+
+      return state.map( (oldPost, index) => {
+        action.id === index ? { ...oldPost, ...newPost } : oldPost ;
+      });
     }
 
     default: {
@@ -20,3 +25,18 @@ export function postReducer (state = [], action) {
   }
 
 }
+
+function filterReducer(state = 'all', action) {
+  if(action.type === SET_FILTER) {
+    return action.filter;
+  } else {
+    return state;
+  }
+}
+
+const appReducer = comebineReducers({
+  posts: postsReducer,
+  filter: filterReducer,
+})
+
+export default appReducer;
